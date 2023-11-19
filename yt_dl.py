@@ -33,7 +33,7 @@ while True:
         print(choice)
         final_choice = choice
         break
-    elif int(choice) <= i and streams[int(choice)-1] in streams:
+    elif int(choice) <= i+1 and streams[int(choice)-1] in streams:
         print(streams[int(choice)-1])
         final_choice = streams[int(choice)-1]
         break
