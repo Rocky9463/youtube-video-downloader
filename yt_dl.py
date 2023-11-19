@@ -5,13 +5,13 @@ except ImportError:
     print("The library could not be imported.")
 
 
-link = "https://youtu.be/vEQ8CXFWLZU?si=tvFETuz7YLn44flR"
+link = input("Enter link of youtube video : ") or "https://youtube.com/shorts/r5OfsZClASI?si=sWxng5HRuxRciRxi"
 print(link)
 yt_video = pytube.YouTube(link)
 #print("Title : ", yt.title)
 print(f"""
 Title: {yt_video.title}
-Length: {yt_video.length/60} minutes
+Length: {round(yt_video.length/60, 2)} minutes
 Date Published: {yt_video.publish_date}
 Views: {yt_video.views}
 """)
@@ -20,11 +20,37 @@ streams = set()
 
 for stream in yt_video.streams.filter(type="video"):
     streams.add(stream.resolution)
-print("Availabel formats : ", streams)
 
-for stream in yt_video.streams.filter(resolution="1440p"):
-    print(stream)
-    #stream.download()
+streams = list(streams)
+print("___ AVAILABLE RESOLUTIONS ___")
+for i in range(len(streams)):
+    print(i+1, ". ", streams[i])
+
+while True:
+    choice = input("Enter choice : ")
+    if choice in streams:
+        print(choice)
+        final_choice = choice
+        break
+    elif int(choice) <= i and streams[int(choice)-1] in streams:
+        print(streams[int(choice)-1])
+        final_choice = streams[int(choice)-1]
+        break
+    else:
+        print("invalid input")
+
+for stream in yt_video.streams.filter(resolution=final_choice):
+    print("Download size : ", round(stream.filesize/1048576, 2), "MB")
+    print("Do you want to download (y/n) : ", end="")
+    confirmation = input()
+    if confirmation == 'y':
+        stream.download()
+    else:
+        print("BYE")
+        exit()
+    sleep(1)
+    print("Downloading......")
+    break
 
 
 
