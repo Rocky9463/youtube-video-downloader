@@ -5,8 +5,8 @@ except ImportError:
     print("The library could not be imported.")
 
 
-link = input("Enter link of youtube video : ") or "https://youtube.com/shorts/r5OfsZClASI?si=sWxng5HRuxRciRxi"
-print(link)
+link = input("Enter link of youtube video : ")
+print("You entered  : ", link)
 yt_video = pytube.YouTube(link)
 
 print(f"""
@@ -22,7 +22,7 @@ for stream in yt_video.streams.filter(type="video"):
     streams.add(stream.resolution)
 
 streams = list(streams)
-streams = streams.sort()
+streams.sort()
 print("___ AVAILABLE RESOLUTIONS ___")
 for i in range(len(streams)):
     print(i+1, ". ", streams[i])
@@ -49,10 +49,8 @@ for stream in yt_video.streams.filter(resolution=final_choice):
     else:
         print("BYE")
         exit()
-    sleep(1)
     print("Downloading......")
     break
-
 
 
 # WORK IN PROGRESS
