@@ -8,7 +8,7 @@ except ImportError:
 link = input("Enter link of youtube video : ") or "https://youtube.com/shorts/r5OfsZClASI?si=sWxng5HRuxRciRxi"
 print(link)
 yt_video = pytube.YouTube(link)
-#print("Title : ", yt.title)
+
 print(f"""
 Title: {yt_video.title}
 Length: {round(yt_video.length/60, 2)} minutes
@@ -22,6 +22,7 @@ for stream in yt_video.streams.filter(type="video"):
     streams.add(stream.resolution)
 
 streams = list(streams)
+streams = streams.sort()
 print("___ AVAILABLE RESOLUTIONS ___")
 for i in range(len(streams)):
     print(i+1, ". ", streams[i])
