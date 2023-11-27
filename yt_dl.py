@@ -18,11 +18,10 @@ Views: {yt_video.views}
 
 streams = set()
 
-for stream in yt_video.streams.filter(type="video"):
+for stream in yt_video.streams.filter():
     streams.add(stream.resolution)
 
 streams = list(streams)
-streams.sort()
 print("___ AVAILABLE RESOLUTIONS ___")
 for i in range(len(streams)):
     print(i+1, ". ", streams[i])
@@ -45,12 +44,10 @@ for stream in yt_video.streams.filter(resolution=final_choice):
     print("Do you want to download (y/n) : ", end="")
     confirmation = input()
     if confirmation == 'y':
+        print("Downloading.....")
         stream.download()
     else:
         print("BYE")
         exit()
-    print("Downloading......")
+    print("Download completed")
     break
-
-
-# WORK IN PROGRESS
